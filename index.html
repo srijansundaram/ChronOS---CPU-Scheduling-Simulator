@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CPU Scheduling Simulator</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- D3.js & jsPDF from CDN -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"
+      defer
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+      defer
+    ></script>
+    <!-- App scripts -->
+    <script src="js/utils.js" defer></script>
+    <script src="js/algorithms.js" defer></script>
+    <script src="js/metrics.js" defer></script>
+    <script src="js/visualize.js" defer></script>
+    <script src="js/compare.js" defer></script>
+    <script src="js/export.js" defer></script>
+    <script src="js/main.js" defer></script>
+  </head>
+  <body class="theme-dark">
+    <header class="app-header">
+      <div class="title">
+        <span class="logo">🖥️</span>
+        <h1>CPU Scheduling Simulator</h1>
+      </div>
+      <div class="actions">
+        <button id="themeToggle" class="btn ghost" title="Toggle Theme">
+          🌓
+        </button>
+        <button id="resetBtn" class="btn ghost">Reset</button>
+        <button id="exportBtn" class="btn primary">Export Report</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <!-- LEFT: Inputs -->
+      <section class="panel left">
+        <h2>Process Input</h2>
+        <form id="processForm" class="form-grid">
+          <label>
+            PID
+            <input type="text" id="pid" placeholder="P1" required />
+          </label>
+          <label>
+            Arrival Time
+            <input
+              type="number"
+              id="arrival"
+              min="0"
+              step="1"
+              value="0"
+              required
+            />
+          </label>
+          <label>
+            Burst Time
+            <input
+              type="number"
+              id="burst"
+              min="1"
+              step="1"
+              value="5"
+              required
+            />
+          </label>
+          <label>
+            Priority
+            <input type="number" id="priority" min="0" step="1" value="0" />
+          </label>
+          <button type="submit" class="btn">Add Process</button>
+        </form>
+
+        <div class="table-wrap">
+          <table id="procTable">
+            <thead>
+              <tr>
+                <th>PID</th>
+                <th>Arrival</th>
+                <th>Burst</th>
+                <th>Priority</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="controls">
+          <div class="control-row">
+            <label
+              >Algorithm
+              <select id="algoSelect">
+                <option value="FCFS">FCFS</option>
+                <option value="SJF_NON">SJF (Non-Preemptive)</option>
+                <option value="SJF_PRE">SJF (Preemptive)</option>
+                <option value="PRIORITY">Priority</option>
+                <option value="RR">Round Robin</option>
+              </select>
+            </label>
+            <label id="qWrap"
+              >Quantum
+              <input type="number" id="quantum" min="1" step="1" value="2" />
+            </label>
+          </div>
+          <div class="control-row">
+            <label>
+              <input type="checkbox" id="multiCore" /> Multi-core (2 CPUs)
+            </label>
+            <label>
+              <input type="checkbox" id="showIdle" checked /> Show Idle Time
+            </label>
+          </div>
+          <div class="btn-row">
+            <button id="runBtn" class="btn primary">Run Simulation</button>
+            <button id="compareBtn" class="btn">Compare Algorithms</button>
+          </div>
+        </div>
+
+        <section class="changelog">
+          <h3>Changelog</h3>
+          <ul id="changelogList"></ul>
+        </section>
+      </section>
+
+      <!-- RIGHT: Viz & Metrics -->
+      <section class="panel right">
+        <div class="viz-section">
+          <h2>Gantt Chart</h2>
+          <div id="ganttContainer" class="gantt"></div>
+          <div id="ganttContainer2" class="gantt hidden"></div>
+        </div>
+
+        <div class="queue-section">
+          <h2>Ready Queue</h2>
+          <div id="queueContainer" class="queue"></div>
+        </div>
+
+        <div class="metrics-section">
+          <h2>Metrics</h2>
+          <div class="metrics-grid" id="metricsGrid"></div>
+          <div id="perfChart" class="chart"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>Made by Srijan · OS Project · Nov 2025</span>
+    </footer>
+  </body>
+</html>

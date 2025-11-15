@@ -90,7 +90,11 @@ function runSelected() {
     procs.map((p) => p.pid)
   );
   Viz.renderMetrics("#metricsGrid", resultMetrics);
-  Viz.renderPerfChart("#perfChart", [{ name: state.algorithm, resultMetrics }]);
+
+  // 🔥 Corrected comparison chart structure
+  Viz.renderPerfChart("#perfChart", [
+    { name: state.algorithm, metrics: resultMetrics },
+  ]);
 
   // Multi-core view
   if (state.multi) {

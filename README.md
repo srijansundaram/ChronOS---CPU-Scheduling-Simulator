@@ -26,7 +26,7 @@ complete with Gantt charts, metrics, and algorithm comparisons.
 
 ## 🚀 Live Demo
 
-🔗 **(Add your Netlify or GitHub Pages link here once deployed)**
+🔗 **https://chronoscpu-scheduling-simulator.netlify.app/**
 
 ---
 
